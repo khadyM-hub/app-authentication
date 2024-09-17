@@ -41,13 +41,14 @@ export default function Home() {
     });
   };
 
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateForm()) return;
 
     try {
-      const response = await fetch("/api/login", {
+      const response = await fetch("${API_URL}/login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -57,7 +58,9 @@ export default function Home() {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("Login successful:", data);
+        localStorage.setItem("accessToken", data.access);
+        localStorage.setItem("refreshToken", data.refresh);
+        // router.push("/");
       } else {
         console.error("Login failed");
       }
