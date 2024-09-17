@@ -98,7 +98,8 @@ DATABASES = {
 }
 
 AUTH_USER_MODEL = 'accounts.User'
-
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

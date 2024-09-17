@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
+
 export default function Home() {
   const [formData, setFormData] = useState({
     email: "",
@@ -16,23 +17,21 @@ export default function Home() {
   const validateForm = () => {
     let valid = true;
     const newErrors = { email: "", password: "" };
-
     // Validate email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       newErrors.email = "Invalid email format.";
       valid = false;
     }
-
     // Validate password (e.g., minimum 6 characters)
     if (formData.password.length < 6) {
       newErrors.password = "Password must be at least 6 characters.";
       valid = false;
     }
-
     setErrors(newErrors);
     return valid;
   };
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -41,14 +40,14 @@ export default function Home() {
     });
   };
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateForm()) return;
 
     try {
-      const response = await fetch("${API_URL}/login/", {
+      const response = await fetch("api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,8 +57,7 @@ export default function Home() {
 
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem("accessToken", data.access);
-        localStorage.setItem("refreshToken", data.refresh);
+        console.log("Login successful:", data);
         // router.push("/");
       } else {
         console.error("Login failed");
