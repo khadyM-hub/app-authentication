@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 
 import Link from "next/link";
 import { useState } from "react";
@@ -8,6 +8,31 @@ export default function Home() {
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+  });
+
+  const validateForm = () => {
+    let valid = true;
+    const newErrors = { email: "", password: "" };
+
+    // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      newErrors.email = "Invalid email format.";
+      valid = false;
+    }
+
+    // Validate password (e.g., minimum 6 characters)
+    if (formData.password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters.";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -18,6 +43,8 @@ export default function Home() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!validateForm()) return;
 
     try {
       const response = await fetch("/api/login", {
@@ -42,7 +69,7 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <main className="w-full max-w-sm p-8 bg-white shadow-md rounded-lg">
-      <h1 className="text-2xl font-bold text-center mb-6 text-black">Login</h1>
+        <h1 className="text-2xl font-bold text-center mb-6 text-black">Login</h1>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
@@ -52,8 +79,10 @@ export default function Home() {
             value={formData.email}
             onChange={handleChange}
             required
-            className=" w-full p-3 mb-4 border border-green-500 rounded-lg focus:outline-none focus:border-green-500"
+            className="w-full p-3 mb-1 border border-green-500 rounded-lg focus:outline-none focus:border-green-500"
           />
+          {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+
           <input
             type="password"
             name="password"
@@ -61,8 +90,12 @@ export default function Home() {
             value={formData.password}
             onChange={handleChange}
             required
-            className=" w-full p-3 mb-4 border border-green-500 rounded-lg focus:outline-none focus:border-green-500"
+            className="w-full p-3 mb-1 border border-green-500 rounded-lg focus:outline-none focus:border-green-500"
           />
+          {errors.password && (
+            <p className="text-red-500 text-sm">{errors.password}</p>
+          )}
+
           <button
             type="submit"
             className="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
@@ -70,7 +103,8 @@ export default function Home() {
             Log In
           </button>
         </form>
-        <p className="mt-4 text-center text-black" >
+
+        <p className="mt-4 text-center text-black">
           Don’t have an account?{" "}
           <Link href="/sign-up" className="text-blue-500 hover:underline">
             Sign up
