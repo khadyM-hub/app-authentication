@@ -21,7 +21,7 @@ export default function Signup() {
 
     // Handle the signup logic (e.g., send request to Django backend)
     try {
-      const response = await fetch("/api/signup", {
+      const response = await fetch("http://localhost:8000/api/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
