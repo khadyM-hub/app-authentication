@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import router from "next/router"; // Import the useRouter hook
 
 
 export default function Home() {
@@ -58,7 +59,7 @@ export default function Home() {
       if (response.ok) {
         const data = await response.json();
         console.log("Login successful:", data);
-        // router.push("/");
+        router.push("/");
       } else {
         console.error("Login failed");
       }

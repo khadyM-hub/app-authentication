@@ -73,8 +73,8 @@ export default function Signup() {
 
         {/* New button to redirect to the home page */}
         <div className="mt-6 text-center">
-          <Link href="/" className="inline-block py-2 px-4 bg-gray-300 text-black rounded-lg hover:bg-gray-400 transition-colors">
-            Go to Home
+          <Link href="/login" className="inline-block py-2 px-4 bg-gray-300 text-black rounded-lg hover:bg-gray-400 transition-colors">
+            Go to Login
           </Link>
         </div>
       </main>
