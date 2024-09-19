@@ -34,7 +34,7 @@ export default function ForgotPassword() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <main className="w-full max-w-sm p-8 bg-white shadow-md rounded-lg">
-        <h1 className="text-2xl font-bold text-center mb-6">Forgot Password</h1>
+        <h1 className="text-2xl font-bold text-center mb-6 text-red">Forgot Password</h1>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
             type="email"
@@ -43,7 +43,7 @@ export default function ForgotPassword() {
             value={email}
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="border border-gray-300 rounded-lg p-2 text-red-500 focus:outline-none focus:border-red-500"
           />
           <button
             type="submit"
@@ -56,3 +56,4 @@ export default function ForgotPassword() {
     </div>
   );
 }
+

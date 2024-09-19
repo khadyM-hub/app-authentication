@@ -43,7 +43,7 @@ export default function Signup() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <main className="w-full max-w-sm p-8 bg-white shadow-md rounded-lg">
-        <h1 className="text-2xl font-bold text-center mb-6">Sign Up</h1>
+        <h1 className="text-2xl font-bold text-center mb-6 text-red">Sign Up</h1>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
             type="email"
